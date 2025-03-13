@@ -1,10 +1,7 @@
 import pygame
 
 from constants import *
-from circleshape import *
-from player import *
-
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+from player import Player
 
 def game_loop():
 	pygame.init()
