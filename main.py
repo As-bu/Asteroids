@@ -11,7 +11,8 @@ def game_loop():
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	clock = pygame.time.Clock()
 	dt = 0 
-	
+	destroyed_asteroids = 0
+
 	player_one = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
 	
 	updateable = pygame.sprite.Group(player_one)
@@ -36,7 +37,20 @@ def game_loop():
 		for asteroid in asteroids:
 			if asteroid.collision_check(player_one) == True:
 				print("Game Over!")
-				return pygame.QUIT 
+				print(f"You destroyed {destroyed_asteroids} Asteroids")
+				if destroyed_asteroids >= 10:
+					print("Good Job!")
+				else:
+					print("Womp Womp")
+
+				return pygame.QUIT
+
+		for asteroid in asteroids:
+			for obj in shots:
+				if asteroid.collision_check(obj):
+					obj.kill()
+					asteroid.split()
+					destroyed_asteroids += 1
 
 		screen.fill(000, rect = None, special_flags = 0)
 		
